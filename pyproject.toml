@@ -1,0 +1,22 @@
+[build-system]
+requires = [
+  "poetry-core>=1.0.0",
+  "maturin>=1.0.0"
+]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "vigilant-agent-hive"
+version = "0.1.0"
+description = "Decentralized intrusion detection system"
+authors = ["@principal-engineer"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+rust = { version = "^1.75" }
+tensorflow = "^2.13"
+elasticsearch = "^8.12"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.4"
+tox = "^4.12"
