@@ -1,0 +1,1 @@
+**/*.pyc\n__pycache__/\n.env\n.env.*\n*.env\n*.log\n*.tmp\n.vscode\n.idea\n*.iml\n.DS_Store\n/.coverage\n.eggs\n*.egg-info\n*.egg\n\n# Docker\n*.tar.gz\ndocker-compose.override.yml\ncache/\nimages/\n\n# Testing\ntmp/\ntest-results/
