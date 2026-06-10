@@ -14,9 +14,13 @@ class RuntimeEngine:
         self.logging.info('Processing events...')
         for event in events:
             self.logging.info(f'Processing event: {event}')
-            if self.is_threat(event):
-                self.logging.info(f'Threat detected: {event}')
-                self.apply_mitigation(event)
+            try:
+                if self.is_threat(event):
+                    self.logging.info(f'Threat detected: {event}')
+                    self.apply_mitigation(event)
+            except Exception as e:
+                self.logging.error(f'Error processing event: {event} - {str(e)}')
+                raise EventProcessingError(f'Error processing event: {event}')
 
     def is_threat(self, event: Event) -> bool:
         for threat_feed in self.threat_feeds:
@@ -27,7 +31,12 @@ class RuntimeEngine:
 
     def apply_mitigation(self, event: Event):
         self.logging.info(f'Applying mitigation: {event}')
-        # Apply mitigation strategy
+        try:
+            # Apply mitigation strategy
+            pass
+        except Exception as e:
+            self.logging.error(f'Error applying mitigation: {event} - {str(e)}')
+            raise MitigationError(f'Error applying mitigation: {event}')
 
     def update_rules(self, threat_feeds: List[ThreatFeed]):
         self.threat_feeds = threat_feeds
@@ -46,7 +55,10 @@ class EventStreamProcessor:
         self.logging.info('Processing events...')
         for event in events:
             self.logging.info(f'Processing event: {event}')
-            self.engine.process_events([event])
+            try:
+                self.engine.process_events([event])
+            except EventProcessingError as e:
+                self.logging.error(f'Error processing event: {event} - {str(e)}')
 
 
 class MLAnomalyDetector:
@@ -59,8 +71,11 @@ class MLAnomalyDetector:
         self.logging.info('Detecting anomalies...')
         anomalies = []
         for event in events:
-            if self.is_anomaly(event):
-                anomalies.append(event)
+            try:
+                if self.is_anomaly(event):
+                    anomalies.append(event)
+            except Exception as e:
+                self.logging.error(f'Error detecting anomaly: {event} - {str(e)}')
         return anomalies
 
     def is_anomaly(self, event: Event) -> bool:
@@ -76,7 +91,12 @@ class ContainmentEngine:
 
     def contain(self, event: Event):
         self.logging.info(f'Containing threat: {event}')
-        # Apply containment strategy
+        try:
+            # Apply containment strategy
+            pass
+        except Exception as e:
+            self.logging.error(f'Error containing threat: {event} - {str(e)}')
+            raise VigilantAgentHiveException(f'Error containing threat: {event}')
 
 
 class PolicyEnforcement:
@@ -85,4 +105,9 @@ class PolicyEnforcement:
 
     def enforce_policy(self, event: Event):
         self.logging.info(f'Enforcing policy: {event}')
-        # Enforce policy
+        try:
+            # Enforce policy
+            pass
+        except Exception as e:
+            self.logging.error(f'Error enforcing policy: {event} - {str(e)}')
+            raise VigilantAgentHiveException(f'Error enforcing policy: {event}')
