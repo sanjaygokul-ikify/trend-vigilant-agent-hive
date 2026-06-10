@@ -1,0 +1,27 @@
+version: '3.9'
+services:
+  coordinator:
+    image: vigilant-coordinator:latest
+    ports:
+      - "8080:8080"
+    environment:
+      COORD_SECRET: "$(COORD_SECRET)"
+    volumes:
+      - ./configs:/config
+
+  db:
+    image: redislabs/redis
+    ports:
+      - "6379:6379"
+
+  worker:
+    image: vigilant-worker
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+
+networks:
+  default:
+    name: vigilant-network
+    driver: overlay
