@@ -10,7 +10,7 @@ class RuntimeEngine:
         self.event_stream = []
         self.logging = logging.getLogger(__name__)
 
-    def process_events(self, events: List[Event]):
+    def process_events(self, events: List[Event]) -> None:
         self.logging.info('Processing events...')
         for event in events:
             self.logging.info(f'Processing event: {event}')
@@ -29,7 +29,7 @@ class RuntimeEngine:
                 return True
         return False
 
-    def apply_mitigation(self, event: Event):
+    def apply_mitigation(self, event: Event) -> None:
         self.logging.info(f'Applying mitigation: {event}')
         try:
             # Apply mitigation strategy
@@ -38,7 +38,7 @@ class RuntimeEngine:
             self.logging.error(f'Error applying mitigation: {event} - {str(e)}')
             raise MitigationError(f'Error applying mitigation: {event}')
 
-    def update_rules(self, threat_feeds: List[ThreatFeed]):
+    def update_rules(self, threat_feeds: List[ThreatFeed]) -> None:
         self.threat_feeds = threat_feeds
         self.logging.info('Updated threat feeds...')
 
@@ -51,7 +51,7 @@ class EventStreamProcessor:
         self.engine = engine
         self.logging = logging.getLogger(__name__)
 
-    def process(self, events: List[Event]):
+    def process(self, events: List[Event]) -> None:
         self.logging.info('Processing events...')
         for event in events:
             self.logging.info(f'Processing event: {event}')
@@ -89,7 +89,7 @@ class ContainmentEngine:
         self.policy_enforcement = policy_enforcement
         self.logging = logging.getLogger(__name__)
 
-    def contain(self, event: Event):
+    def contain(self, event: Event) -> None:
         self.logging.info(f'Containing threat: {event}')
         try:
             # Apply containment strategy
@@ -103,7 +103,7 @@ class PolicyEnforcement:
     def __init__(self):
         self.logging = logging.getLogger(__name__)
 
-    def enforce_policy(self, event: Event):
+    def enforce_policy(self, event: Event) -> None:
         self.logging.info(f'Enforcing policy: {event}')
         try:
             # Enforce policy
