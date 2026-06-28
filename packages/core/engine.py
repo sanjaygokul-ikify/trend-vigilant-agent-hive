@@ -59,6 +59,8 @@ class EventStreamProcessor:
                 self.engine.process_events([event])
             except EventProcessingError as e:
                 self.logging.error(f'Error processing event: {event} - {str(e)}')
+                # Added error handling here
+                self.engine.get_event_stream().append(event)
 
 
 class MLAnomalyDetector:
