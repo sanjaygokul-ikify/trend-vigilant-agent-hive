@@ -63,6 +63,8 @@ class EventStreamProcessor:
                 self.engine.get_event_stream().append(event)
                 self.engine.logging.error('Event added to event stream due to error')
                 self.engine.logging.error(f'Event {event.id} failed processing: {str(e)}')
+                # Preventing further processing of events that failed processing
+                raise
 
 
 class MLAnomalyDetector:
